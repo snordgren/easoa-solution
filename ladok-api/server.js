@@ -27,8 +27,14 @@ create table if not exists Grade(
   course varchar(64) not null,
   grade varchar(64) not null
 );`)
-connection.query(`
-insert into Grade (personId, examId, course, grade) values ('Mattias', 'Tenta', 'Java 2', 'VG');`);
+
+function insert(personId, examId, course, grade) {
+  connection.query(`
+insert into Grade (personId, examId, course, grade) 
+  values ('${personId}', '${examId}', '${course}', '${grade}');`);
+}
+
+insert('Mattias', 'Tenta', 'Java 2', 'VG');
 
 // Läs in request-body som JSON.
 app.use(bodyParser.json());
