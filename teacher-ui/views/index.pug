@@ -5,9 +5,9 @@ html
       include style.css
   body
     h1= message
-    table
+    table#customers
       each val in grades
-        tr
-          th= val.name
-          th= val.grade
+        tr#customers
+          td#customers= val.name
+          td#customers= val.grade
     
