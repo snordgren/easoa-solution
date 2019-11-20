@@ -22,7 +22,7 @@ var connection = mysql.createConnection({
   password: 'testpass',
   database: 'epok'
 });
-// Connecta.
+// Connecta till databasen.
 connection.connect();
 
 // Kör en query för att se till att databasen fungerar. Utgå från detta när vi gör 
