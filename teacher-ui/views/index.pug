@@ -8,6 +8,8 @@ html
     table#customers
       each val in grades
         tr#customers
-          td#customers= val.name
+          td#customers= val.personId
+          td#customers= val.course
+          td#customers= val.examId
           td#customers= val.grade
     
