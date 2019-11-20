@@ -1,4 +1,5 @@
 // Ladda Express-biblioteket. Express använder vi för att skapa vår HTTP-server.
+// I JavaScript är bibliotek variabler som alla andra.
 const express = require('express');
 const bodyParser = require('body-parser');
 // Ladda Axios som vi använder när vi kör requests mot andra HTTP-servers. 
@@ -44,6 +45,9 @@ app.get('/course', (req, res) => {
 
   // Ta ut variablerna "course" och "semester" från URL:en på routen.
   const { course, semester } = req.query;
+
+  // Skicka ett JavaScript-objekt som automatiskt blir JSON som svar på
+  // requestet. 
   res.json({ code: 'LTU-37012' })
 });
 
