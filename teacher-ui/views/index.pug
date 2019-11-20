@@ -6,6 +6,11 @@ html
   body
     h1= message
     table#customers
+      thead
+        th= "Namn"
+        th= "Kurs"
+        th= "Examination"
+        th= "Betyg"
       each val in grades
         tr#customers
           td#customers= val.personId
