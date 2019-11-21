@@ -12,7 +12,20 @@ html
         th= "EXIMINATION"
         th= "BETYG"
       each val in grades
-        tr#customers
+        form(method='POST' action='/grade')
+          tr#customers
+            td#customers
+              input(type='text' placeholder='Name' name='personId' readonly=true value=`${val.personId}`)
+            td#customers
+              input(type='text' placeholder='Course' name='course' readonly=true value=`${val.course}`)
+            td#customers
+              input(type='text' placeholder='Exam' name='examId' readonly=true value=`${val.examId}`)
+            td#customers
+              input(type='text' placeholder='Grade' name='grade' value=`${val.grade}`)
+            td#customers
+              button(type='submit') Submit
+      
+      //  tr#customers
           td#customers= val.personId
           td#customers= val.course
           td#customers= val.examId
