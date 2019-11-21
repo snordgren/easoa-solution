@@ -81,25 +81,25 @@ app.listen(port, () => {
       occasionId: '37000',
       personId: '990815-8372'
     })
-    .post('http://localhost:3002/student', {
+    .then(_ => axios.post('http://localhost:3002/student', {
       idealId: 'nornic-7',
       occasionId: '37000',
       personId: '930817-7436'
-    })
-    .post('http://localhost:3002/student', {
+    }))
+    .then(_ => axios.post('http://localhost:3002/student', {
       idealId: 'marmod-7',
       occasionId: '37000',
       personId: '961119-2031'
-    })
+    }))
     .catch(err => {
       throw err;
     })
     .then(res => axios
       .get('http://localhost:3002/student', {
         params: {
-          idealId: 'silnor-7',
-          occasionId: '1',
-          personId: '990815-8372'
+           idealId: 'silnor-7',
+           occasionId: '37000',
+           personId: '990815-8372'
         }
       }))
     .catch(err => {
