@@ -78,8 +78,19 @@ select * from Grade where personId = '${personId}'
 app.post('/grade', (req, res) => {
   const { grade, personId, course, examId } = req.body;
   insert(personId, examId, course, grade);
-  res.send({ success: true });
+  res.json({ success: true });
 });
+
+app.put('/grade', (req, res) => {
+  const { grade, personId, course, examId } = req.body;
+  function update(personId, examId, course, grade) {
+    connection.query(`
+update Grade set grade = '${grade}'
+  where personId = '${personId}' and examId = '${examId}' and course = '${course}';`);
+  }
+  update(personId, examId, course, grade);
+  res.json({ success: true });
+})
 
 app.listen(port, () => {
   console.log(`Listening on ${port}.`);

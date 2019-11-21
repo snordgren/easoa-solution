@@ -12,7 +12,7 @@ html
         th= "Examination"
         th= "Betyg"
       each val in grades
-        form(method='POST' action='http://localhost:3003/grade')
+        form(method='POST' action='/grade')
           tr#customers
             td#customers
               input(type='text' placeholder='Name' name='personId' readonly=true value=`${val.personId}`)
