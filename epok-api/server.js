@@ -24,42 +24,72 @@ var connection = mysql.createConnection({
 });
 // Connecta till databasen.
 connection.connect();
-
-// Kör en query för att se till att databasen fungerar. Utgå från detta när vi gör 
-// fler grejer med databasen.
-connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
-
-  // Rapportera vidare om det blir en error.
-  if (error) throw error;
-
-  // Printa lösningen på vår query.
-  console.log('The solution is: ', results[0].solution);
-});
+connection.query('drop table if exists CourseOccasion;');
+connection.query(`
+create table if not exists CourseOccasion(
+  id int auto_increment primary key,
+  courseId varchar(64) not null,
+  semester varchar(64) not null
+);`);
 
 // Läs in HTTP-input som JSON.
 app.use(bodyParser.json());
 
 // Skapa en HTTP GET på http://localhost:3001/course. 
 // HTTP-routen hämtar en anmälningskod baserat på Ideal, Kurskod och Termin.
-app.get('/course', (req, res) => {
-
+app.get('/occasion', (req, res) => {
   // Ta ut variablerna "course" och "semester" från URL:en på routen.
-  const { course, semester } = req.query;
+  const { courseId, semester } = req.query;
 
-  // Skicka ett JavaScript-objekt som automatiskt blir JSON som svar på
-  // requestet. 
-  res.json({ code: 'LTU-37012' })
+  let query;
+  if (courseId && semester) {
+    query = `
+      select * from CourseOccasion where courseId = '${courseId}' 
+        and semester = '${semester}';`;
+  } else {
+    query = 'select * from CourseOccasion';
+  }
+
+  connection.query(query, (error, results, fields) => {
+    if (error) throw error;
+    if (!results) throw 'Results are undefined.';
+    console.log(`GET courseId=${courseId}, semester=${semester}, results=${JSON.stringify(results)}`);
+    res.json(results);
+  });
+});
+
+app.post('/occasion', (req, res) => {
+  const { courseId, semester } = req.body;
+  connection.query(`
+insert into CourseOccasion (courseId, semester) values ('${courseId}', '${semester}');`,
+    (err, results, fields) => {
+      if (err) {
+        res.send(err);
+        throw err;
+      }
+      res.json({ success: true });
+    });
 });
 
 // Körs när servern har startar.
 app.listen(port, () => {
-  console.log(`Listening on ${port}.`);
-
-  // Skicka ett request till course för att se till att routen fungerar.
   axios
-    .get('http://localhost:3001/course', { params: {
-      semester: '3',
-      course: 'D0023E'
-    }})
-    .then(res => { console.log(res.data); }); // När vi har kört vårt request, printa resultatet.
+    .post('http://localhost:3001/occasion', {
+      courseId: 'D0031N',
+      semester: 'ht19'
+    })
+    .catch(err => {
+      throw err;
+    })
+    .then(res => axios
+      .get('http://localhost:3001/occasion', {
+        params: {
+          semester: 'ht19',
+          courseId: 'D0031N'
+        }
+      }))
+    .catch(err => {
+      throw err;
+    })
+    .then(res => console.log(res.data)); // Efter vårt request, printa resultatet.
 });

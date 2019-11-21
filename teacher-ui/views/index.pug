@@ -7,30 +7,30 @@ html
     h1= message
     table#customers
       thead
-        th= "NAMN"
-        th= "KURS"
-        th= "EXIMINATION"
+        th= "IDEALANVÄNDARE"
+        th= "PERSONNUMMER"
+        th= "KURSTILLFÄLLE"
+        th= "PROVKOD"
+        th= "DATUM"
         th= "BETYG"
       each val in grades
         form(method='POST' action='/grade')
           tr#customers
-            td#customers
-              input(type='text' placeholder='Name' name='personId' readonly=true value=`${val.personId}`)
-            td#customers
-              input(type='text' placeholder='Course' name='course' readonly=true value=`${val.course}`)
-            td#customers
-              input(type='text' placeholder='Exam' name='examId' readonly=true value=`${val.examId}`)
-            td#customers
-              input(type='text' placeholder='Grade' name='grade' value=`${val.grade}`)
-            td#customers
-              button(type='submit') Submit
-
-      footer#footer
-        form(method='POST' action='/new-grade')
-          input(type='text' placeholder='Ideal' name='idealId')
-          input(type='text' placeholder='Kurskod' name='courseId')
-          input(type='text' placeholder='Termin' name='semester')
-          input(type='text' placeholder='Provnummer' name='examId')
-          input(type='text' placeholder='Datum' name='date')
-          input(type='text' placeholder='Betyg' name='grade')
-          button(type='submit') Submit
+            td#customers= val.idealId
+            td#customers= val.personId
+            td#customers= val.occasionId
+            td#customers= val.examId
+            td#customers= val.date
+            td#customers= val.grade
+                  
+    footer#footer
+      form(method='POST' action='/new-grade')
+        input(type='text' placeholder='Ideal' name='idealId')
+        input(type='text' placeholder='Kurskod' name='courseId')
+        input(type='text' placeholder='Termin' name='semester')
+        input(type='text' placeholder='Provnummer' name='examId')
+        input(type='text' placeholder='Datum' name='date')
+        input(type='text' placeholder='Betyg' name='grade')
+        button(type='submit') Submit
+        
+    
