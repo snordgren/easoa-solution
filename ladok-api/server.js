@@ -34,8 +34,11 @@ insert into Grade (personId, examId, course, grade)
   values ('${personId}', '${examId}', '${course}', '${grade}');`);
 }
 
-insert('Mattias', 'Tenta', 'Java 2', 'VG');
+// insert('Mattias', 'Tenta', 'Java 2', 'VG');
 
+
+// Läs in request-body med URL-enkodning.
+app.use(express.urlencoded());
 // Läs in request-body som JSON.
 app.use(bodyParser.json());
 
@@ -73,22 +76,24 @@ select * from Grade where personId = '${personId}'
 }
 */
 app.post('/grade', (req, res) => {
-  const grade = req.body.grade;
-  const personId = req.body.personId;
-  const course = req.body.course;
-  const examId = req.body.examId;
-  res.json({});
+  const { grade, personId, course, examId } = req.body;
+  insert(personId, examId, course, grade);
+  res.send({ success: true });
 });
 
 app.listen(port, () => {
   console.log(`Listening on ${port}.`);
 
-  axios.get(`http://localhost:${port}/grades`, {
-    params: {
-      // grade: '1',
-      personId: '1',
-      course: '4',
-      examId: '2'
-    }
-  }).then(res => console.log(res.data));
+  axios.post(`http://localhost:${port}/grade`,
+    {
+      grade: 'VG',
+      personId: 'Mattias',
+      course: 'Java 2',
+      examId: 'Tenta'
+    })
+    .catch(err => {
+      throw err;
+    })
+    .then(res => axios.get(`http://localhost:${port}/grades`))
+    .then(res => console.log(res.data));
 });

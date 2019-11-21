@@ -8,8 +8,8 @@ app.set('view engine', 'pug');
 app.get('/', (req, res) => {
   const grades = axios.get('http://localhost:3003/grades').then(res => res.data).then(data => {
     res.render('index', {
-      title: 'hey',
-      message: 'Hello there',
+      title: 'Tecaher UI',
+      message: 'Teacher UI',
       grades: data
     });
   });
