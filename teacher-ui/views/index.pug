@@ -7,7 +7,7 @@ html
     h1= message
     table#customers
       thead
-        th= "IDEALANVÄNDARE"
+        // th= "IDEALANVÄNDARE"
         th= "PERSONNUMMER"
         th= "KURSTILLFÄLLE"
         th= "PROVKOD"
@@ -16,7 +16,7 @@ html
       each val in grades
         form(method='POST' action='/grade')
           tr#customers
-            td#customers= val.idealId
+            // td#customers= val.idealId
             td#customers= val.personId
             td#customers= val.occasionId
             td#customers= val.examId

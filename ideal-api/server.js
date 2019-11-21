@@ -78,8 +78,18 @@ app.listen(port, () => {
   axios
     .post('http://localhost:3002/student', {
       idealId: 'silnor-7',
-      occasionId: '1',
+      occasionId: '37000',
       personId: '990815-8372'
+    })
+    .post('http://localhost:3002/student', {
+      idealId: 'nornic-7',
+      occasionId: '37000',
+      personId: '930817-7436'
+    })
+    .post('http://localhost:3002/student', {
+      idealId: 'marmod-7',
+      occasionId: '37000',
+      personId: '961119-2031'
     })
     .catch(err => {
       throw err;

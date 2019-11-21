@@ -18,7 +18,7 @@ const connection = mysql.createConnection({
 // Connecta till databasen.
 connection.connect();
 
-connection.query('drop table Grade;');
+connection.query('drop table if exists Grade;');
 connection.query(`
 create table if not exists Grade(
   id int auto_increment primary key,

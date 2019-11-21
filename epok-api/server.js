@@ -30,7 +30,7 @@ create table if not exists CourseOccasion(
   id int auto_increment primary key,
   courseId varchar(64) not null,
   semester varchar(64) not null
-);`);
+) auto_increment=37000;`);
 
 // Läs in HTTP-input som JSON.
 app.use(bodyParser.json());
