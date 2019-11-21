@@ -24,10 +24,13 @@ html
               input(type='text' placeholder='Grade' name='grade' value=`${val.grade}`)
             td#customers
               button(type='submit') Submit
-      
-      //  tr#customers
-          td#customers= val.personId
-          td#customers= val.course
-          td#customers= val.examId
-          td#customers= val.grade
+    form(method='POST' action='/new-grade')
+      input(type='text' placeholder='Ideal' name='idealId')
+      input(type='text' placeholder='Kurskod' name='courseId')
+      input(type='text' placeholder='Termin' name='semester')
+      input(type='text' placeholder='Provnummer' name='examId')
+      input(type='text' placeholder='Datum' name='date')
+      input(type='text' placeholder='Betyg' name='grade')
+      button(type='submit') Submit
+        
     
